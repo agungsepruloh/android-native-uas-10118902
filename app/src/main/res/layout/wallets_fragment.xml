@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.trustwalletclone.screens.wallets.WalletsViewModel" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallets"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.wallets.WalletsFragment">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
-
-    </FrameLayout>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:listData="@{viewModel.wallets}"/>
 
 </layout>

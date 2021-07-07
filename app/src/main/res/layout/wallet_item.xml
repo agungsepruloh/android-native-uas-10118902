@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="wallet"
+            type="com.example.trustwalletclone.model.Wallet" />
+
+        <variable
+            name="walletListener"
+            type="com.example.trustwalletclone.adapter.WalletListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> walletListener.onClick(wallet)}"
+        android:padding="12dp"
+        app:listItem="@{wallet}">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/wallet_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:civ_border_color="#DDDDDD"
+            app:civ_border_width="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:walletImage="@{wallet}"
+            tools:src="@drawable/ethereum" />
+
+        <TextView
+            android:id="@+id/wallet_string"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/wallet_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/wallet_image"
+            app:layout_constraintTop_toTopOf="@+id/wallet_image"
+            app:walletString="@{wallet}"
+            tools:text="@string/ethereum" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

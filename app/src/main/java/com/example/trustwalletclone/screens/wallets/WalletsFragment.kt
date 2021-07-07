@@ -4,14 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import com.example.trustwalletclone.R
+import com.example.trustwalletclone.adapter.WalletAdapter
+import com.example.trustwalletclone.adapter.WalletListener
 import com.example.trustwalletclone.databinding.WalletsFragmentBinding
 
 class WalletsFragment : Fragment() {
-    private lateinit var viewModel: WalletsViewModel
+    /**
+     * Lazily initialize our [WalletsViewModel].
+     */
+    private val viewModel: WalletsViewModel by lazy {
+        ViewModelProvider(this).get(WalletsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,8 +27,14 @@ class WalletsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val binding = DataBindingUtil.inflate<WalletsFragmentBinding>(inflater, R.layout.wallets_fragment, container, false)
-        viewModel = ViewModelProvider(this).get(WalletsViewModel::class.java)
         setHasOptionsMenu(true)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.wallets.adapter = WalletAdapter(WalletListener {
+            Log.d("selectedWallet", it.toString())
+        })
+
         return binding.root
     }
 
