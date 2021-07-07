@@ -11,6 +11,10 @@ class WalkthroughViewModel : ViewModel() {
     val walkthroughItems: LiveData<List<WalkthroughItem>>
         get() = _walkthroughItems
 
+    private val _isShowErrorDialog = MutableLiveData<Boolean>()
+    val isShowErrorDialog: LiveData<Boolean>
+        get() = _isShowErrorDialog
+
     init {
         _walkthroughItems.value = listOf(
             WalkthroughItem(1,
@@ -30,5 +34,15 @@ class WalkthroughViewModel : ViewModel() {
                 R.string.explore_decentralized_apps,
                 R.string.earn_explore_utilize_spend_trade_and_more),
         )
+
+        _isShowErrorDialog.value = false
+    }
+
+    fun showErrorDialog() {
+        _isShowErrorDialog.value = true
+    }
+
+    fun errorDialogShowed() {
+        _isShowErrorDialog.value = false
     }
 }

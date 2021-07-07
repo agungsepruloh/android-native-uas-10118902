@@ -13,4 +13,7 @@
     <string name="trade_your_assets_anonymously">Trade your assets anonymously.</string>
     <string name="explore_decentralized_apps">Explore decentralized apps</string>
     <string name="earn_explore_utilize_spend_trade_and_more">Earn, explore, utilize, spend, trade, and more.</string>
+    <string name="error">Error</string>
+    <string name="server_error">Oops! There was an error with the server.</string>
+    <string name="ok">Ok</string>
 </resources>
