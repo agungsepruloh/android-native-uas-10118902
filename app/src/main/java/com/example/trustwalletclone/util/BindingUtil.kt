@@ -2,15 +2,17 @@ package com.example.trustwalletclone.util
 
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trustwalletclone.R
 import com.example.trustwalletclone.adapter.WalletAdapter
 import com.example.trustwalletclone.model.WalkthroughItem
 import com.example.trustwalletclone.model.Wallet
-import java.util.*
+import com.example.trustwalletclone.screens.wallets.WalletsApiStatus
 
 @BindingAdapter("walkthroughImage")
 fun ImageView.setWalkthroughImage(item: WalkthroughItem?) {
@@ -37,6 +39,23 @@ fun TextView.setWalkthroughDesc(item: WalkthroughItem?) {
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Wallet>?) {
     val adapter = recyclerView.adapter as WalletAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("walletsApiStatus")
+fun bindStatus(statusImageView: ImageView, status: WalletsApiStatus?) {
+    when (status) {
+        WalletsApiStatus.LOADING -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.loading_animation)
+        }
+        WalletsApiStatus.ERROR -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_connection_error)
+        }
+        WalletsApiStatus.DONE -> {
+            statusImageView.visibility = View.GONE
+        }
+    }
 }
 
 @BindingAdapter("walletString")
