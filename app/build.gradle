@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -18,6 +19,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,6 +54,9 @@ dependencies {
     // Circle Indicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    // Circle ImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
@@ -62,6 +67,16 @@ dependencies {
     // View Model
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi:1.9.3"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
+
+    // Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    // Multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
