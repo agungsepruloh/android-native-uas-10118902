@@ -16,4 +16,5 @@
     <string name="error">Error</string>
     <string name="server_error">Oops! There was an error with the server.</string>
     <string name="ok">Ok</string>
+    <string name="info">Info</string>
 </resources>

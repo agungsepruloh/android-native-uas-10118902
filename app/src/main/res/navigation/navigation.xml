@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listWalletFragment"
         android:name="com.example.trustwalletclone.screens.wallets.WalletsFragment"
-        android:label="list_wallet_fragment"
+        android:label="Import"
         tools:layout="@layout/wallets_fragment" />
 
 </navigation>
