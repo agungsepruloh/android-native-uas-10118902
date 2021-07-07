@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Trust Wallet Clone</string>
+    <string name="create_a_new_wallet">Create a new wallet</string>
+    <string name="i_already_have_a_wallet">I already have a wallet</string>
+    <string name="content_description">Content Description</string>
+    <string name="walkthrough_title">Walkthrough Title</string>
+    <string name="walkthrough_desc">Walkthrough Description</string>
+    <string name="private_and_secure">Private and secure</string>
+    <string name="private_keys_never_leave_your_device">Private keys never leave your device.</string>
+    <string name="all_assets_in_one_place">All assets in one place</string>
+    <string name="view_and_store_your_assets_seamlessly">View and store your assets seamlessly.</string>
+    <string name="trade_assets">Trade assets</string>
+    <string name="trade_your_assets_anonymously">Trade your assets anonymously.</string>
+    <string name="explore_decentralized_apps">Explore decentralized apps</string>
+    <string name="earn_explore_utilize_spend_trade_and_more">Earn, explore, utilize, spend, trade, and more.</string>
 </resources>
