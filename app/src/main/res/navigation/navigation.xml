@@ -9,6 +9,19 @@
         android:id="@+id/listWalletFragment"
         android:name="com.example.trustwalletclone.screens.wallets.WalletsFragment"
         android:label="Import"
-        tools:layout="@layout/wallets_fragment" />
+        tools:layout="@layout/wallets_fragment">
+        <action
+            android:id="@+id/action_listWalletFragment_to_importPhraseFragment"
+            app:destination="@id/importPhraseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/importPhraseFragment"
+        android:name="com.example.trustwalletclone.screens.importphrase.ImportPhraseFragment"
+        android:label="Import Phrase"
+        tools:layout="@layout/import_phrase_fragment">
+        <argument
+            android:name="wallet"
+            app:argType="com.example.trustwalletclone.model.Wallet" />
+    </fragment>
 
 </navigation>

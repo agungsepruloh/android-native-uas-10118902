@@ -2,12 +2,12 @@ package com.example.trustwalletclone.screens.wallets
 
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.trustwalletclone.R
 import com.example.trustwalletclone.adapter.WalletAdapter
 import com.example.trustwalletclone.adapter.WalletListener
@@ -32,7 +32,14 @@ class WalletsFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.wallets.adapter = WalletAdapter(WalletListener {
-            Log.d("selectedWallet", it.toString())
+            viewModel.displayWalletDetails(it)
+        })
+
+        viewModel.navigateToSelectedWallet.observe(viewLifecycleOwner, {
+            if (it != null) {
+                findNavController().navigate(WalletsFragmentDirections.actionListWalletFragmentToImportPhraseFragment(it))
+                viewModel.onDisplayWalletDetailsComplete()
+            }
         })
 
         return binding.root

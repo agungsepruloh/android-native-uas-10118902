@@ -19,6 +19,10 @@ class WalletsViewModel : ViewModel() {
     val status: LiveData<WalletsApiStatus>
         get() = _status
 
+    private val _navigateToSelectedWallet = MutableLiveData<Wallet?>()
+    val navigateToSelectedWallet: LiveData<Wallet?>
+        get() = _navigateToSelectedWallet
+
     init {
         viewModelScope.launch {
             _status.value = WalletsApiStatus.LOADING
@@ -30,5 +34,13 @@ class WalletsViewModel : ViewModel() {
                 _status.value = WalletsApiStatus.ERROR
             }
         }
+    }
+
+    fun displayWalletDetails(wallet: Wallet) {
+        _navigateToSelectedWallet.value = wallet
+    }
+
+    fun onDisplayWalletDetailsComplete() {
+        _navigateToSelectedWallet.value = null
     }
 }
