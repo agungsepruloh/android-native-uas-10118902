@@ -18,4 +18,5 @@
     <string name="ok">Ok</string>
     <string name="info">Info</string>
     <string name="ethereum">Ethereum</string>
+    <string name="content_status">Content Status</string>
 </resources>
