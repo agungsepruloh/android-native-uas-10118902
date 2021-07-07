@@ -11,9 +11,13 @@ class WalkthroughViewModel : ViewModel() {
     val walkthroughItems: LiveData<List<WalkthroughItem>>
         get() = _walkthroughItems
 
-    private val _isShowErrorDialog = MutableLiveData<Boolean>()
-    val isShowErrorDialog: LiveData<Boolean>
-        get() = _isShowErrorDialog
+    private val _eventCreateNewWallet = MutableLiveData<Boolean>()
+    val eventCreateNewWallet: LiveData<Boolean>
+        get() = _eventCreateNewWallet
+
+    private val _eventAlreadyHaveWallet = MutableLiveData<Boolean>()
+    val eventAlreadyHaveWallet: LiveData<Boolean>
+        get() = _eventAlreadyHaveWallet
 
     init {
         _walkthroughItems.value = listOf(
@@ -35,14 +39,23 @@ class WalkthroughViewModel : ViewModel() {
                 R.string.earn_explore_utilize_spend_trade_and_more),
         )
 
-        _isShowErrorDialog.value = false
+        _eventCreateNewWallet.value = false
+        _eventAlreadyHaveWallet.value = false
     }
 
-    fun showErrorDialog() {
-        _isShowErrorDialog.value = true
+    fun createNewWallet() {
+        _eventCreateNewWallet.value = true
     }
 
-    fun errorDialogShowed() {
-        _isShowErrorDialog.value = false
+    fun onCreateWalletComplete() {
+        _eventCreateNewWallet.value = false
+    }
+
+    fun alreadyHaveWallet() {
+        _eventAlreadyHaveWallet.value = true
+    }
+
+    fun onAlreadyHaveWalletComplete() {
+        _eventAlreadyHaveWallet.value = false
     }
 }

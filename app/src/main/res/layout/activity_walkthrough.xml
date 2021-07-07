@@ -58,7 +58,7 @@
                 android:layout_height="64dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="24dp"
-                android:onClick="@{() -> viewModel.showErrorDialog()}"
+                android:onClick="@{() -> viewModel.createNewWallet()}"
                 android:text="@string/create_a_new_wallet" />
 
             <TextView
@@ -68,7 +68,8 @@
                 android:gravity="center_horizontal"
                 android:text="@string/i_already_have_a_wallet"
                 android:textAlignment="center"
-                android:textColor="@color/color_primary" />
+                android:textColor="@color/color_primary"
+                android:onClick="@{() -> viewModel.alreadyHaveWallet()}"/>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.trustwalletclone.screens.walkthrough
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.example.trustwalletclone.transformer.DepthPageTransformer
 import com.example.trustwalletclone.R
 import com.example.trustwalletclone.databinding.ActivityWalkthroughBinding
 import com.example.trustwalletclone.adapter.WalkthroughAdapter
+import com.example.trustwalletclone.screens.main.MainActivity
 
 class WalkthroughActivity : AppCompatActivity() {
     lateinit var walkThroughAdapter: WalkthroughAdapter
@@ -42,10 +44,18 @@ class WalkthroughActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.isShowErrorDialog.observe(this, { isShowErrorDialog ->
-            if (isShowErrorDialog) {
+        viewModel.eventCreateNewWallet.observe(this, { createNewWallet ->
+            if (createNewWallet) {
                 showErrorDialog()
-                viewModel.errorDialogShowed()
+                viewModel.onCreateWalletComplete()
+            }
+        })
+
+        viewModel.eventAlreadyHaveWallet.observe(this, { alreadyHaveWallet ->
+            if (alreadyHaveWallet) {
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                viewModel.onAlreadyHaveWalletComplete()
             }
         })
     }
