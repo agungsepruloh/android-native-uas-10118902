@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:paddingVertical="24dp"
-                android:text="@{viewModel.name}" />
+                android:text="@={viewModel.name}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +59,7 @@
                 android:gravity="top"
                 android:minLines="3"
                 android:paddingVertical="24dp"
-                android:text="@{viewModel.phrases}" />
+                android:text="@={viewModel.phrases}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,8 @@
             android:text="@string/import_string"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            android:onClick="@{() -> viewModel.importPhrases()}"/>
 
         <TextView
             android:id="@+id/textView2"

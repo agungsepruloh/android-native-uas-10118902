@@ -1,10 +1,7 @@
 package com.example.trustwalletclone.screens.importphrase
 
-import android.content.ClipboardManager
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil

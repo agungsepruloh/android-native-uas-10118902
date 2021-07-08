@@ -1,6 +1,7 @@
 package com.example.trustwalletclone.screens.importphrase
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,17 +12,17 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     val selectedWallet: LiveData<Wallet>
         get() = _selectedWallet
 
-    private val _name = MutableLiveData<String>()
-    val name: LiveData<String>
-        get() = _name
-
-    private val _phrases = MutableLiveData<String>()
-    val phrases: LiveData<String>
-        get() = _phrases
+    // Two-way databinding, exposing MutableLiveData
+    val name = MutableLiveData<String>()
+    val phrases = MutableLiveData<String>()
 
     init {
         _selectedWallet.value = wallet
-        _name.value = "Wallet 1"
-        _phrases.value = String()
+        name.value = "Wallet 1"
+    }
+
+    fun importPhrases() {
+        Log.d("ImportPhraseViewModel", name.value ?: "")
+        Log.d("ImportPhraseViewModel", phrases.value ?: "")
     }
 }
