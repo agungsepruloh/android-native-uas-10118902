@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/info"
+        android:id="@+id/scan"
         android:contentDescription="@string/scan"
         android:enabled="true"
         android:icon="@drawable/outline_scan_white_36"

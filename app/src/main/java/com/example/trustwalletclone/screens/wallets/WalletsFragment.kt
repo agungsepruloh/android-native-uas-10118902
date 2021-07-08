@@ -1,5 +1,6 @@
 package com.example.trustwalletclone.screens.wallets
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -48,8 +49,11 @@ class WalletsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("RestrictedApi")
     private fun showActionBar() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.show()
+        actionBar?.setShowHideAnimationEnabled(false)
     }
 
     private fun getInfoIntent(): Intent {

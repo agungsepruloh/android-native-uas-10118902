@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.trustwalletclone"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -78,6 +78,9 @@ dependencies {
 
     // Multidex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Zxing Scanner
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
