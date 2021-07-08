@@ -3,8 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/listWalletFragment">
+    app:startDestination="@id/walkthroughFragment">
 
+    <fragment
+        android:id="@+id/walkthroughFragment"
+        android:name="com.example.trustwalletclone.screens.walkthrough.WalkthroughFragment"
+        android:label="Trust Wallet"
+        tools:layout="@layout/walkthrough_fragment">
+        <action
+            android:id="@+id/action_walkthroughFragment_to_listWalletFragment"
+            app:destination="@id/listWalletFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listWalletFragment"
         android:name="com.example.trustwalletclone.screens.wallets.WalletsFragment"
@@ -17,11 +26,14 @@
     <fragment
         android:id="@+id/importPhraseFragment"
         android:name="com.example.trustwalletclone.screens.importphrase.ImportPhraseFragment"
-        android:label="Import Phrase"
+        android:label="Import {title}"
         tools:layout="@layout/import_phrase_fragment">
         <argument
             android:name="wallet"
             app:argType="com.example.trustwalletclone.model.Wallet" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
 </navigation>

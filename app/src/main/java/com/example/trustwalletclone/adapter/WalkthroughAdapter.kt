@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trustwalletclone.databinding.FragmentWalkthroughBinding
+import com.example.trustwalletclone.databinding.WalkthroughItemBinding
 import com.example.trustwalletclone.model.WalkthroughItem
 
 class WalkthroughAdapter() :
@@ -20,7 +20,7 @@ class WalkthroughAdapter() :
         holder.bind(item)
     }
 
-    class ViewHolder private constructor(private val binding: FragmentWalkthroughBinding) :
+    class ViewHolder private constructor(private val binding: WalkthroughItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: WalkthroughItem) {
@@ -31,7 +31,7 @@ class WalkthroughAdapter() :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FragmentWalkthroughBinding.inflate(layoutInflater, parent, false)
+                val binding = WalkthroughItemBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

@@ -13,14 +13,13 @@
         android:theme="@style/Theme.TrustWalletClone"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".screens.walkthrough.WalkthroughActivity">
+        <activity android:name=".screens.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.main.MainActivity" />
     </application>
 
 </manifest>

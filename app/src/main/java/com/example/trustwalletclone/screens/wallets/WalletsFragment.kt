@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +28,7 @@ class WalletsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val binding = DataBindingUtil.inflate<WalletsFragmentBinding>(inflater, R.layout.wallets_fragment, container, false)
+        showActionBar()
         setHasOptionsMenu(true)
 
         binding.lifecycleOwner = this
@@ -35,14 +37,19 @@ class WalletsFragment : Fragment() {
             viewModel.displayWalletDetails(it)
         })
 
-        viewModel.navigateToSelectedWallet.observe(viewLifecycleOwner, {
-            if (it != null) {
-                findNavController().navigate(WalletsFragmentDirections.actionListWalletFragmentToImportPhraseFragment(it))
+        viewModel.navigateToSelectedWallet.observe(viewLifecycleOwner, { wallet ->
+            if (wallet != null) {
+                findNavController()
+                    .navigate(WalletsFragmentDirections.actionListWalletFragmentToImportPhraseFragment(wallet, wallet.name))
                 viewModel.onDisplayWalletDetailsComplete()
             }
         })
 
         return binding.root
+    }
+
+    private fun showActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 
     private fun getInfoIntent(): Intent {
