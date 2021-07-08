@@ -19,4 +19,11 @@
     <string name="info">Info</string>
     <string name="ethereum">Ethereum</string>
     <string name="content_status">Content Status</string>
+    <string name="import_string">Import</string>
+    <string name="phrase_info">Typically 12 (sometimes 24) words separated by single spaces</string>
+    <string name="what_is_a_recovery_phrase">What is a Recovery Phrase?</string>
+    <string name="paste">Paste</string>
+    <string name="phrase">Phrase</string>
+    <string name="name">Name</string>
+    <string name="wallet_1">Wallet 1</string>
 </resources>
