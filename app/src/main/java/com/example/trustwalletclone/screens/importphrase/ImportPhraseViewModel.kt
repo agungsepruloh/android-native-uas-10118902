@@ -12,6 +12,10 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     val selectedWallet: LiveData<Wallet>
         get() = _selectedWallet
 
+    private val _eventPastePhrases = MutableLiveData<Boolean>()
+    val eventPastePhrases: LiveData<Boolean>
+        get() = _eventPastePhrases
+
     // Two-way databinding, exposing MutableLiveData
     val name = MutableLiveData<String>()
     val phrases = MutableLiveData<String>()
@@ -24,5 +28,17 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     fun importPhrases() {
         Log.d("ImportPhraseViewModel", name.value ?: "")
         Log.d("ImportPhraseViewModel", phrases.value ?: "")
+    }
+
+    fun pastePhrases() {
+        _eventPastePhrases.value = true
+    }
+
+    fun onPastePhrasesComplete() {
+        _eventPastePhrases.value = false
+    }
+
+    fun updatePhrases(value: String) {
+        phrases.value = value
     }
 }
