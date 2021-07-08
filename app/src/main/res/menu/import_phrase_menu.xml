@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/info"
+        android:contentDescription="@string/scan"
+        android:enabled="true"
+        android:icon="@drawable/outline_scan_white_36"
+        android:title="@string/scan"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+</menu>

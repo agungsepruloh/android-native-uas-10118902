@@ -26,4 +26,5 @@
     <string name="phrase">Phrase</string>
     <string name="name">Name</string>
     <string name="wallet_1">Wallet 1</string>
+    <string name="scan">Scan</string>
 </resources>
