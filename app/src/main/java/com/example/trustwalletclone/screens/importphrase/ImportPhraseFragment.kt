@@ -18,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 
 class ImportPhraseFragment : Fragment() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var viewModel: ImportPhraseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +35,12 @@ class ImportPhraseFragment : Fragment() {
 
         // Binding viewModel with arguments supplied
         val viewModelFactory = ImportPhraseViewModelFactory(wallet, application)
-        val viewModel =
-            ViewModelProvider(this, viewModelFactory).get(ImportPhraseViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ImportPhraseViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.eventPastePhrases.observe(viewLifecycleOwner, {
             if (it) {
-                updatePhrases(viewModel, getTextToPaste(), binding)
+                updatePhrases(getTextToPaste(), binding)
                 viewModel.onPastePhrasesComplete()
             }
         })
@@ -50,7 +50,7 @@ class ImportPhraseFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == Activity.RESULT_OK) {
                     val scanResult = it.data?.getStringExtra(Intents.Scan.RESULT).toString()
-                    updatePhrases(viewModel, scanResult, binding)
+                    updatePhrases(scanResult, binding)
                 }
             }
 
@@ -97,9 +97,7 @@ class ImportPhraseFragment : Fragment() {
      * @param newPhrases
      * @param binding
      */
-    private fun updatePhrases(
-        viewModel: ImportPhraseViewModel, newPhrases: String, binding: ImportPhraseFragmentBinding,
-    ) {
+    private fun updatePhrases(newPhrases: String, binding: ImportPhraseFragmentBinding) {
         viewModel.updatePhrases(newPhrases)
         binding.importPhraseInput.requestFocus()
     }
