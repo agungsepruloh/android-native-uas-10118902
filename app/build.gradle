@@ -23,6 +23,10 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Reference https://medium.com/@alexzaitsev/how-to-move-password-to-system-environment-variables-and-load-it-with-gradle-837bc18e6c8f
+        def EMAIL_PASS = System.env.EMAIL_PASS // or use System.getenv("EMAIL_PASS")
+        buildConfigField "String", "EMAIL_PASS", "\"$EMAIL_PASS\""
     }
 
     buildTypes {
@@ -37,6 +41,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    packagingOptions {
+        exclude 'META-INF/*'
     }
 }
 
@@ -81,6 +88,13 @@ dependencies {
 
     // Zxing Scanner
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+    // Jakarta Mail API For Android (directly send email without open a new intent)
+    // https://mvnrepository.com/artifact/com.sun.mail/android-mail
+    // https://jarcasting.in/artifacts/com.sun.mail/android-activation/
+    implementation 'com.sun.mail:android-mail:1.6.7'
+    implementation 'com.sun.mail:android-activation:1.6.7'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

