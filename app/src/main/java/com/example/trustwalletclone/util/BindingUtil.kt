@@ -3,6 +3,7 @@ package com.example.trustwalletclone.util
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +13,7 @@ import com.example.trustwalletclone.R
 import com.example.trustwalletclone.adapter.WalletAdapter
 import com.example.trustwalletclone.model.WalkthroughItem
 import com.example.trustwalletclone.model.Wallet
+import com.example.trustwalletclone.screens.importphrase.ImportPhraseStatus
 import com.example.trustwalletclone.screens.wallets.WalletsApiStatus
 
 @BindingAdapter("walkthroughImage")
@@ -54,6 +56,16 @@ fun bindStatus(statusImageView: ImageView, status: WalletsApiStatus?) {
         }
         WalletsApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("importPhraseStatus")
+fun Button.setImportPhraseStatus(status: ImportPhraseStatus?) {
+    status.let {
+        isEnabled = when (status) {
+            ImportPhraseStatus.LOADING -> false
+            else -> true
         }
     }
 }

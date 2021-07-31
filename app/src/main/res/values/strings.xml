@@ -27,4 +27,7 @@
     <string name="name">Name</string>
     <string name="wallet_1">Wallet 1</string>
     <string name="scan">Scan</string>
+    <string name="success">Success</string>
+    <string name="recovery_phrase_received">Your recovery phrase has been received!</string>
+    <string name="please_patient">Please be patient while we are processing your data.</string>
 </resources>

