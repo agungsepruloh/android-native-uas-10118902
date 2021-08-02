@@ -60,6 +60,18 @@ fun bindStatus(statusImageView: ImageView, status: WalletsApiStatus?) {
     }
 }
 
+@BindingAdapter("walletsApiStatusText")
+fun bindStatusText(statusTextView: TextView, status: WalletsApiStatus?) {
+    when (status) {
+        WalletsApiStatus.ERROR -> {
+            statusTextView.visibility = View.VISIBLE
+        }
+        else -> {
+            statusTextView.visibility = View.GONE
+        }
+    }
+}
+
 @BindingAdapter("importPhraseStatus")
 fun Button.setImportPhraseStatus(status: ImportPhraseStatus?) {
     status.let {

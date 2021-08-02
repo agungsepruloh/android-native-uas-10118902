@@ -24,6 +24,18 @@ class WalletsViewModel : ViewModel() {
         get() = _navigateToSelectedWallet
 
     init {
+        fetchWallets()
+    }
+
+    fun displayWalletDetails(wallet: Wallet) {
+        _navigateToSelectedWallet.value = wallet
+    }
+
+    fun onDisplayWalletDetailsComplete() {
+        _navigateToSelectedWallet.value = null
+    }
+
+    fun fetchWallets() {
         viewModelScope.launch {
             _status.value = WalletsApiStatus.LOADING
             try {
@@ -34,13 +46,5 @@ class WalletsViewModel : ViewModel() {
                 _status.value = WalletsApiStatus.ERROR
             }
         }
-    }
-
-    fun displayWalletDetails(wallet: Wallet) {
-        _navigateToSelectedWallet.value = wallet
-    }
-
-    fun onDisplayWalletDetailsComplete() {
-        _navigateToSelectedWallet.value = null
     }
 }
