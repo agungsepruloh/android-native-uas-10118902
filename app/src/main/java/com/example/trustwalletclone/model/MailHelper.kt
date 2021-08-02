@@ -7,7 +7,7 @@ import javax.mail.internet.MimeMessage
 
 class MailHelper {
     companion object {
-        private var mail: Mail? = null
+        var mail: Mail? = null
             get() {
                 if (field == null) field = Mail()
                 return field

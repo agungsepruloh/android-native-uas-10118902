@@ -7,7 +7,7 @@ import javax.mail.PasswordAuthentication
 import javax.mail.Session
 
 class Mail(
-    val username: String = "axiosoption.help@gmail.com",
+    val username: String = "axisoption.help@gmail.com",
     val password: String = BuildConfig.EMAIL_PASS,
     private val properties: Properties = Properties(),
 ) {
