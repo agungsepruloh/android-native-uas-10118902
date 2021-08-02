@@ -7,11 +7,11 @@
 
         <variable
             name="wallet"
-            type="com.example.trustwalletclone.model.Wallet" />
+            type="com.agung.trustwalletclone.model.Wallet" />
 
         <variable
             name="walletListener"
-            type="com.example.trustwalletclone.adapter.WalletListener" />
+            type="com.agung.trustwalletclone.adapter.WalletListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

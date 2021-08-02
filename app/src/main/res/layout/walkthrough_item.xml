@@ -8,7 +8,7 @@
 
         <variable
             name="walkthroughItem"
-            type="com.example.trustwalletclone.model.WalkthroughItem" />
+            type="com.agung.trustwalletclone.model.WalkthroughItem" />
     </data>
 
     <LinearLayout

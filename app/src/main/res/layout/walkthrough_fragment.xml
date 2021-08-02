@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.trustwalletclone.screens.walkthrough.WalkthroughViewModel" />
+            type="com.agung.trustwalletclone.screens.walkthrough.WalkthroughViewModel" />
     </data>
 
     <LinearLayout
