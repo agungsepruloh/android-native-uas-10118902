@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -51,6 +52,13 @@ class ImportPhraseFragment : Fragment() {
             }
         })
 
+        viewModel.eventAskRecoveryPhrase.observe(viewLifecycleOwner, {
+            if (it) {
+                openAskRecoveryPhrase()
+                viewModel.onAskRecoveryPhraseComplete()
+            }
+        })
+
         viewModel.importPhraseStatus.observe(viewLifecycleOwner, {
             if (it == ImportPhraseStatus.SUCCESS) showDialog(ImportPhraseStatus.SUCCESS)
             else if (it == ImportPhraseStatus.ERROR) showDialog(ImportPhraseStatus.ERROR)
@@ -60,22 +68,31 @@ class ImportPhraseFragment : Fragment() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == Activity.RESULT_OK) {
-        val scanResult = it.data?.getStringExtra(Intents.Scan.RESULT).toString()
-        updatePhrases(scanResult, binding)
+                    val scanResult = it.data?.getStringExtra(Intents.Scan.RESULT).toString()
+                    updatePhrases(scanResult, binding)
+                }
+            }
+
+        setHasOptionsMenu(true)
+        binding.nameInput.requestFocus()
+        return binding.root
     }
-}
 
-setHasOptionsMenu(true)
-binding.nameInput.requestFocus()
-return binding.root
-}
+    private fun openAskRecoveryPhrase() {
+        startActivity(getAskRecoveryPhraseContent())
+    }
 
-override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-    super.onCreateOptionsMenu(menu, inflater)
-    inflater.inflate(R.menu.import_phrase_menu, menu)
-}
+    private fun getAskRecoveryPhraseContent(): Intent? {
+        val uri = Uri.parse("https://community.trustwallet.com/t/how-to-restore-a-multi-coin-wallet")
+        return Intent(Intent.ACTION_VIEW, uri)
+    }
 
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.import_phrase_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.scan -> scanBarcode()
         }

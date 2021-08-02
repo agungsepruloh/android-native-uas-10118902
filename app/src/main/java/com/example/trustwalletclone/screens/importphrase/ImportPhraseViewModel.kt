@@ -33,6 +33,10 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     val importPhraseStatus: LiveData<ImportPhraseStatus>
         get() = _importPhraseStatus
 
+    private val _eventAskRecoveryPhrase = MutableLiveData<Boolean>()
+    val eventAskRecoveryPhrase: LiveData<Boolean>
+        get() = _eventAskRecoveryPhrase
+
     // Two-way databinding, exposing MutableLiveData
     val name = MutableLiveData<String>()
     val nameValidator = LiveDataValidator(name).apply {
@@ -56,6 +60,7 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     init {
         _importPhraseStatus.value = ImportPhraseStatus.NONE
         _selectedWallet.value = wallet
+        _eventAskRecoveryPhrase.value = false
         name.value = "Wallet 1"
         isImportFormValidMediator.value = false
     }
@@ -105,6 +110,14 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
                 }
             }
         }
+    }
+
+    fun askRecoveryPhrase() {
+        _eventAskRecoveryPhrase.value = true
+    }
+
+    fun onAskRecoveryPhraseComplete() {
+        _eventAskRecoveryPhrase.value = false
     }
 
     fun pastePhrases() {
