@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.agung.trustwalletclone.screens.importphrase.ImportPhraseViewModel" />
+            type="com.agung.axisoption.screens.importphrase.ImportPhraseViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

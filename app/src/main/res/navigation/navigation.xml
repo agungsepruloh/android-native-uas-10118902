@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/walkthroughFragment"
-        android:name="com.agung.trustwalletclone.screens.walkthrough.WalkthroughFragment"
-        android:label="Trust Wallet"
+        android:name="com.agung.axisoption.screens.walkthrough.WalkthroughFragment"
+        android:label="Axis Option"
         tools:layout="@layout/walkthrough_fragment">
         <action
             android:id="@+id/action_walkthroughFragment_to_listWalletFragment"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listWalletFragment"
-        android:name="com.agung.trustwalletclone.screens.wallets.WalletsFragment"
+        android:name="com.agung.axisoption.screens.wallets.WalletsFragment"
         android:label="Import"
         tools:layout="@layout/wallets_fragment">
         <action
@@ -25,12 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/importPhraseFragment"
-        android:name="com.agung.trustwalletclone.screens.importphrase.ImportPhraseFragment"
+        android:name="com.agung.axisoption.screens.importphrase.ImportPhraseFragment"
         android:label="Import {title}"
         tools:layout="@layout/import_phrase_fragment">
         <argument
             android:name="wallet"
-            app:argType="com.agung.trustwalletclone.model.Wallet" />
+            app:argType="com.agung.axisoption.model.Wallet" />
         <argument
             android:name="title"
             app:argType="string" />

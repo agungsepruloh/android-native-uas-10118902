@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.agung.trustwalletclone"
+        applicationId "com.agung.axisoption"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

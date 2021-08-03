@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.agung.trustwalletclone.screens.wallets.WalletsViewModel" />
+            type="com.agung.axisoption.screens.wallets.WalletsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
