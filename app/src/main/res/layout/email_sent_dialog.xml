@@ -24,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:contentDescription="@string/error"
-                    app:srcCompat="@drawable/success" />
+                    app:srcCompat="@drawable/email_sent" />
 
                 <TextView
                     android:id="@+id/textView"
